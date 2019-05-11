@@ -72,25 +72,25 @@ class Chooser extends Component {
     this.state = {
       artists: [
         {
-          photoUrl: "/imgs/arianna-talvi.png", fullname: "Arianna Talvi", gender: 'f', count: 1348, id: 1,
+          photoUrl: "/imgs/arianna-talvi.png", fullname: "Arianna Talvi", gender: 'f', count: 48, id: 1,
         },
         {
-          photoUrl: "/imgs/beyonce.jpg", fullname: "Beyonce", gender: 'f', count: 998, id: 2,
+          photoUrl: "/imgs/beyonce.jpg", fullname: "Beyonce", gender: 'f', count: 98, id: 2,
         },
         {
-          photoUrl: "/imgs/billie-ellish.png", fullname: "Billie Ellish", gender: 'f', count: 34000, id: 3,
+          photoUrl: "/imgs/billie-ellish.png", fullname: "Billie Ellish", gender: 'f', count: 300, id: 3,
         },
         {
-          photoUrl: "/imgs/cardi-b.jpg", fullname: "Cardi B", gender: 'f', count: 23500, id: 4,
+          photoUrl: "/imgs/cardi-b.jpg", fullname: "Cardi B", gender: 'f', count: 20, id: 4,
         },
         {
-          photoUrl: "/imgs/drake.jpeg", fullname: "Drake", gender: 'm', count: 76899, id: 5,
+          photoUrl: "/imgs/drake.jpeg", fullname: "Drake", gender: 'm', count: 79, id: 5,
         },
         {
-          photoUrl: "/imgs/rob-thomas.jpg", fullname: "Rob Thomas", gender: 'm', count: 101404, id: 6,
+          photoUrl: "/imgs/rob-thomas.jpg", fullname: "Rob Thomas", gender: 'm', count: 104, id: 6,
         },
         {
-          photoUrl: "/imgs/taylor-switf.jpg", fullname: "Taylor Switf", gender: 'f', count: 154798, id: 7,
+          photoUrl: "/imgs/taylor-switf.jpg", fullname: "Taylor Switf", gender: 'f', count: 198, id: 7,
         },
         {
           photoUrl: "/imgs/bruno-mars.jpg", fullname: "Bruno Mars", gender: 'm', count: 99, id: 8,
@@ -148,18 +148,23 @@ class Chooser extends Component {
   }
 
   chooseArtist = (id) => {
+    let toDisplayBefore = this.state.toDisplay;
     this.setState({
       toDisplay: [],
     }, () => {
       let artists = [...this.state.artists];
 
       let artist = artists.filter(x => x.id === id)[0];
+      let artistsToDecrease = toDisplayBefore.filter(x => x.id !== id)[0];
       artist.count++;
+      if (artistsToDecrease.count > 0) {
+        artistsToDecrease.count--;
+      }
 
       let idx = artists.indexOf(artist);
+      let idxToDecrease = artists.indexOf(artistsToDecrease);
       artists[idx] = artist;
-
-      console.log(artists);
+      artists[idxToDecrease] = artistsToDecrease;
 
       this.setState({
         artists
